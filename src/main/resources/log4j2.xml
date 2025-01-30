@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
+    <!-- Defining appenders (where logs will be sent) -->
     <Appenders>
+        <!-- Console appender, output will be directed to the console -->
         <Console name="Console" target="SYSTEM_OUT">
+            <!-- Log pattern format - time, thread name, log level, logger name, and the message -->
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+
+        <!-- File appender, output will be written to a file -->
         <File name="File" fileName="logs/app.log">
+            <!-- Log pattern format for file output -->
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
     </Appenders>
+
+    <!-- Defining loggers -->
     <Loggers>
+        <!-- Root logger configuration with level set to 'info' -->
         <Root level="info">
+            <!-- Reference to the console appender -->
             <AppenderRef ref="Console"/>
+            <!-- Reference to the file appender -->
             <AppenderRef ref="File"/>
         </Root>
     </Loggers>

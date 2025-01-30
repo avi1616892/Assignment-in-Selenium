@@ -83,7 +83,6 @@ public class BasePage {
         return driver.getTitle().equals(title);
     }
 
-
     /**
      * Retrieves the text content of the element located by the given locator.
      *
@@ -106,7 +105,11 @@ public class BasePage {
         actions.doubleClick(element).perform();
     }
 
-
+    /**
+     * Scrolls the page until the element located by the given locator is in view.
+     *
+     * @param locator the By locator of the element to scroll to
+     */
     public void scrollToElement(By locator) {
         // Find the element using the provided locator
         WebElement element = driver.findElement(locator);
@@ -115,6 +118,12 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    /**
+     * Checks if the element located by the given locator is displayed.
+     *
+     * @param locator the By locator of the element
+     * @return true if the element is displayed, false otherwise
+     */
     public boolean isElementDisplayed(By locator){
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -124,6 +133,13 @@ public class BasePage {
         }
     }
 
+    /**
+     * Retrieves the value of the specified attribute of the element located by the given locator using JavaScript.
+     *
+     * @param locator  the By locator of the element
+     * @param attribute the name of the attribute
+     * @return the value of the attribute
+     */
     public String getElementAttributeUsingJS(By locator, String attribute) {
         WebElement element = driver.findElement(locator);
         JavascriptExecutor js = (JavascriptExecutor) driver;

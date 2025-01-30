@@ -1,13 +1,62 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="classes" thread-count="4">
-    <test name="Regression Tests">
+<suite name="Automation Suite" parallel="classes"> <!-- thread-count="5" -->
+    <test name="LogoutUser Test">
         <groups>
             <run>
                 <include name="regression"/>
+                <include name="LogOutUser"/>
             </run>
         </groups>
-        <packages>
-            <package name="example2.tests"/>
-        </packages>
+        <classes>
+            <class name="all.tests.LogoutUserSuiteTest"/>
+        </classes>
+    </test>
+
+    <test name="RegisterUserWithExistingEmail Test">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="RegisterUser"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="all.tests.RegisterUserWithExistingEmailSuiteTest"/>
+        </classes>
+    </test>
+
+    <test name="ScrollArrowButton Test">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="ScrollArrowButton"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="all.tests.ScrollArrowButtonSuiteTest"/>
+        </classes>
+    </test>
+
+    <test name="SubscriptionInCartPage Test">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="SubscriptionInCart"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="all.tests.SubscriptionInCartPageSuiteTest"/>
+        </classes>
+    </test>
+
+    <test name="ViewCategoryProducts Test">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="ViewCategoryProducts"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="all.tests.ViewCategoryProductsSuiteTest"/>
+        </classes>
     </test>
 </suite>
