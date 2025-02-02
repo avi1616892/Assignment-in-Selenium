@@ -37,11 +37,7 @@ public class RegisterUserWithExistingEmailSuiteTest {
     @Test(priority = 1, description = "Testing the visibility of the Home page", groups = {"regression", "RegisterUser"})
     public void verifyHomePage() {
         boolean result = actions.verifyHomePage();
-        if (result) {
-            logger.info("Home page is visible, test passed.");
-        } else {
-            logger.error("Home page is not visible, test failed.");
-        }
+        logger.info(result ? "Home page is visible, test passed." : "Home page is not visible, test failed.");
         Assert.assertTrue(result, "The Home page is not visible.");
     }
 
@@ -52,11 +48,7 @@ public class RegisterUserWithExistingEmailSuiteTest {
     @Test(priority = 2, description = "Testing the visibility of 'New User Signup!' message", groups = {"regression", "RegisterUser"})
     public void verifyNewUserSignup() {
         boolean result = actions.verifySignUpLoginPage();
-        if (result) {
-            logger.info("'New User Signup!' is visible, test passed.");
-        } else {
-            logger.error("'New User Signup!' is not visible, test failed.");
-        }
+        logger.info(result ? "'New User Signup!' is visible, test passed." : "'New User Signup!' is not visible, test failed.");
         Assert.assertTrue(result, "'New User Signup!' is not visible.");
     }
 
@@ -68,11 +60,8 @@ public class RegisterUserWithExistingEmailSuiteTest {
     @Test(priority = 3, description = "Verify 'Email Address already exists!' error", groups = {"regression", "RegisterUser"}, dataProvider = "emailData", dataProviderClass = TestDataProvider.class)
     public void verifyEmailAddressAlreadyExistsError(String email) {
         boolean result = actions.verifyEmailAddressAlreadyExistsError(email);
-        if (result) {
-            logger.info("'Email Address already exists!' error is visible for email: " + email + ", test passed.");
-        } else {
-            logger.error("'Email Address already exists!' error is not visible for email: " + email + ", test failed.");
-        }
+        logger.info(result ? "'Email Address already exists!' error is visible for email: " + email + ", test passed."
+                : "'Email Address already exists!' error is not visible for email: " + email + ", test failed.");
         Assert.assertTrue(result, "'Email Address already exists!' error not visible.");
     }
 

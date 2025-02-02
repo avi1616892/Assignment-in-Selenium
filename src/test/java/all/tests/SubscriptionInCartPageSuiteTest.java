@@ -36,11 +36,7 @@ public class SubscriptionInCartPageSuiteTest {
     @Test(priority = 1, description = "Testing the visibility of the Home page", groups = {"regression", "SubscriptionInCart"})
     public void verifyHomePage() {
         boolean result = actions.verifyHomePage();
-        if (result) {
-            logger.info("Home page is visible, test passed.");
-        } else {
-            logger.error("Home page is not visible, test failed.");
-        }
+        logger.info(result ? "Home page is visible, test passed." : "Home page is not visible, test failed.");
         Assert.assertTrue(result, "The Home page is not visible.");
     }
 
@@ -51,11 +47,7 @@ public class SubscriptionInCartPageSuiteTest {
     @Test(priority = 2, description = "Testing the visibility of the subscription text in the cart", groups = {"regression", "SubscriptionInCart"})
     public void verifySubscriptionText() {
         boolean result = actions.verifyCartSubscriptionText();
-        if (result) {
-            logger.info("Subscription text is visible, test passed.");
-        } else {
-            logger.error("Subscription text is not visible, test failed.");
-        }
+        logger.info(result ? "Subscription text is visible, test passed." : "Subscription text is not visible, test failed.");
         Assert.assertTrue(result, "The subscription text is not visible in the cart.");
     }
 
@@ -66,11 +58,7 @@ public class SubscriptionInCartPageSuiteTest {
     @Test(priority = 3, description = "Verify success message 'You have been successfully subscribed!' is visible", groups = {"regression", "SubscriptionInCart"})
     public void verifySubscriptionSuccessMessage() {
         boolean result = actions.verifyCartSubscriptionSuccessMessage();
-        if (result) {
-            logger.info("Subscription success message is visible, test passed.");
-        } else {
-            logger.error("Subscription success message is not visible, test failed.");
-        }
+        logger.info(result ? "Subscription success message is visible, test passed." : "Subscription success message is not visible, test failed.");
         Assert.assertTrue(result, "The subscription success message is not visible.");
     }
 

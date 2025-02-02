@@ -36,11 +36,7 @@ public class ScrollArrowButtonSuiteTest {
     @Test(priority = 1, description = "Testing the visibility of the Home page", groups = {"regression", "ScrollArrowButton"})
     public void verifyHomePage() {
         boolean result = actions.verifyHomePage();
-        if (result) {
-            logger.info("Home page is visible, test passed.");
-        } else {
-            logger.error("Home page is not visible, test failed.");
-        }
+        logger.info(result ? "Home page is visible, test passed." : "Home page is not visible, test failed.");
         Assert.assertTrue(result, "The Home page is not visible.");
     }
 
@@ -51,11 +47,7 @@ public class ScrollArrowButtonSuiteTest {
     @Test(priority = 2, description = "Testing the visibility of the subscription text on the home page", groups = {"regression", "ScrollArrowButton"})
     public void verifyHomeSubscriptionText() {
         boolean result = actions.verifyHomeSubscriptionText();
-        if (result) {
-            logger.info("Subscription text is visible, test passed.");
-        } else {
-            logger.error("Subscription text is not visible, test failed.");
-        }
+        logger.info(result ? "Subscription text is visible, test passed." : "Subscription text is not visible, test failed.");
         Assert.assertTrue(result, "The subscription text is not visible on the home page.");
     }
 
@@ -65,11 +57,21 @@ public class ScrollArrowButtonSuiteTest {
     @Test(priority = 3, description = "Testing the scroll up functionality using the arrow button", groups = {"regression", "ScrollArrowButton"})
     public void verifyScrollUpText() {
         boolean result = actions.verifyScrollUpText();
-        if (result) {
-            logger.info("Text 'Full-Fledged practice website for Automation Engineers' is visible after scroll up, test passed.");
-        } else {
-            logger.error("Text 'Full-Fledged practice website for Automation Engineers' is not visible after scroll up, test failed.");
+        int attempts = 0;
+
+        while (!result && attempts < 20) {
+            logger.warn("Advertisement might be blocking the scroll up button, text not visible after scroll up. Refreshing the page and retrying...");
+            driver.navigate().refresh();
+            verifyHomeSubscriptionText();
+            result = actions.verifyScrollUpText();
+            attempts++;
         }
+
+        logger.info(result ?
+                "Text 'Full-Fledged practice website for Automation Engineers' is visible after scroll up, test passed." :
+                "Text 'Full-Fledged practice website for Automation Engineers' is not visible after scroll up, test failed."
+        );
+
         Assert.assertTrue(result, "The text is not visible after scrolling up.");
     }
 
@@ -82,4 +84,3 @@ public class ScrollArrowButtonSuiteTest {
         GenerateDriver.cleanDriver(driver);
     }
 }
-

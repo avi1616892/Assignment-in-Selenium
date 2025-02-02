@@ -13,6 +13,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * BasePage provides common helper methods for interacting with web pages.
+ * This class includes methods for clicking elements, entering text,
+ * verifying element visibility, scrolling, and other utilities.
+ */
 public class BasePage {
 
     private static final Logger logger = LogManager.getLogger(BasePage.class);
@@ -21,128 +26,144 @@ public class BasePage {
     Actions actions;
 
     /**
-     * Constructor to initialize the WebDriver and WebDriverWait.
+     * Constructor to initialize BasePage with WebDriver and timeout.
      *
-     * @param driver  the WebDriver instance
-     * @param timeout the timeout duration in seconds
+     * @param driver WebDriver instance to interact with the web page
+     * @param timeout Maximum wait time in seconds for explicit waits
      */
     public BasePage(WebDriver driver, int timeout) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         actions = new Actions(driver);
+        logger.info("BasePage initialized with timeout: {} seconds", timeout);
     }
 
     /**
-     * Clicks on the element located by the given locator.
+     * Clicks on a web element identified by the given locator.
      *
-     * @param locator the By locator of the element to be clicked
+     * @param locator The By locator of the element to be clicked
      */
     public void click(By locator) {
-        logger.info("Going to click WebElement: {}", locator);
+        logger.info("Attempting to click WebElement: {}", locator);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         WebElement element = driver.findElement(locator);
         element.click();
+        logger.info("Clicked WebElement: {}", locator);
     }
 
     /**
-     * Types the given text into the element located by the given locator.
+     * Types the given text into a web element.
      *
-     * @param locator the By locator of the element
-     * @param text    the text to be typed
+     * @param locator The By locator of the element
+     * @param text The text to be entered
      */
     public void typeText(By locator, String text) {
-        logger.info("Going to send keys to WebElement: {} {}", locator, text);
+        logger.info("Entering text '{}' into WebElement: {}", text, locator);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         WebElement element = driver.findElement(locator);
         element.clear();
         element.sendKeys(text);
+        logger.info("Text entered into WebElement: {}", locator);
     }
 
     /**
-     * Validates if elements exist for the given locator.
+     * Checks if an element exists on the page.
      *
-     * @param locator the By locator of the elements
-     * @return the boolean of elements found
+     * @param locator The By locator of the element
+     * @return true if the element exists, false otherwise
      */
     public boolean validateElementExist(By locator) {
-        // Wait for the page to load completely
+        logger.info("Validating existence of WebElement: {}", locator);
         wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-
-        // Find all elements matching the locator
         List<WebElement> elements = driver.findElements(locator);
-        return !elements.isEmpty();
+        boolean exists = !elements.isEmpty();
+        logger.info("Validation result for WebElement {}: {}", locator, exists);
+        return exists;
     }
 
     /**
-     * Checks if the current tab title matches the given title.
+     * Verifies if the current tab title matches the expected title.
      *
-     * @param title the expected title of the tab
-     * @return true if the tab title matches, false otherwise
+     * @param title The expected tab title
+     * @return true if the title matches, false otherwise
      */
     public boolean isTabTitleMatch(String title) {
-        return driver.getTitle().equals(title);
+        logger.info("Checking if tab title matches: {}", title);
+        boolean matches = driver.getTitle().equals(title);
+        logger.info("Tab title match result: {}", matches);
+        return matches;
     }
 
     /**
-     * Retrieves the text content of the element located by the given locator.
+     * Retrieves the text content of a web element.
      *
-     * @param locator the By locator of the element
-     * @return the text content of the element
+     * @param locator The By locator of the element
+     * @return The text content of the element
      */
     public String getElementText(By locator) {
+        logger.info("Retrieving text from WebElement: {}", locator);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return driver.findElement(locator).getText();
+        String text = driver.findElement(locator).getText();
+        logger.info("Text retrieved from WebElement {}: {}", locator, text);
+        return text;
     }
 
     /**
-     * Double-clicks on the element located by the given locator.
+     * Performs a double-click action on a web element.
      *
-     * @param locator the By locator of the element to be double-clicked
+     * @param locator The By locator of the element to be double-clicked
      */
     public void doubleClickElement(By locator) {
+        logger.info("Double-clicking WebElement: {}", locator);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         WebElement element = driver.findElement(locator);
         actions.doubleClick(element).perform();
+        logger.info("Double-clicked WebElement: {}", locator);
     }
 
     /**
-     * Scrolls the page until the element located by the given locator is in view.
+     * Scrolls to a web element using JavaScript.
      *
-     * @param locator the By locator of the element to scroll to
+     * @param locator The By locator of the element to scroll to
      */
     public void scrollToElement(By locator) {
-        // Find the element using the provided locator
+        logger.info("Scrolling to WebElement: {}", locator);
         WebElement element = driver.findElement(locator);
-
-        // Scroll the element into view using JavaScript
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        logger.info("Scrolled to WebElement: {}", locator);
     }
 
     /**
-     * Checks if the element located by the given locator is displayed.
+     * Checks if a web element is displayed on the page.
      *
-     * @param locator the By locator of the element
+     * @param locator The By locator of the element
      * @return true if the element is displayed, false otherwise
      */
-    public boolean isElementDisplayed(By locator){
+    public boolean isElementDisplayed(By locator) {
+        logger.info("Checking if WebElement is displayed: {}", locator);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            logger.info("WebElement is displayed: {}", locator);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
+            logger.info("WebElement is NOT displayed: {}", locator);
             return false;
         }
     }
 
     /**
-     * Retrieves the value of the specified attribute of the element located by the given locator using JavaScript.
+     * Retrieves an attribute value from a web element using JavaScript.
      *
-     * @param locator  the By locator of the element
-     * @param attribute the name of the attribute
-     * @return the value of the attribute
+     * @param locator The By locator of the element
+     * @param attribute The attribute name to retrieve
+     * @return The value of the specified attribute
      */
     public String getElementAttributeUsingJS(By locator, String attribute) {
+        logger.info("Getting attribute '{}' from WebElement: {}", attribute, locator);
         WebElement element = driver.findElement(locator);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        return (String) js.executeScript("return arguments[0].getAttribute(arguments[1]);", element, attribute);
+        String value = (String) js.executeScript("return arguments[0].getAttribute(arguments[1]);", element, attribute);
+        logger.info("Retrieved attribute '{}' from WebElement {}: {}", attribute, locator, value);
+        return value;
     }
 }

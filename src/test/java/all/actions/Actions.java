@@ -2,6 +2,7 @@ package all.actions;
 
 import all.pages.*;
 import all.utils.JsonUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import all.utils.RandomUtils;
 
@@ -33,7 +34,7 @@ public class Actions {
     public boolean verifySignUpLoginPage() {
         boolean results = homePage.verifyHomePage();
         if (results) {
-            homePage.clickSignUpLogin();
+            homePage.clickSignUpLoginButton();
             results = signUpLoginPage.verifySignUpLoginPage();
         }
         return results;
@@ -60,14 +61,14 @@ public class Actions {
     }
 
     public boolean verifyNavigatedToLoginPage() {
-        homePage.clickLogout();
+        homePage.clickLogoutButton();
         return signUpLoginPage.verifySignUpLoginPage();
     }
 
     public boolean verifyCartSubscriptionText() {
         boolean result = homePage.verifyHomePage();
         if (result) {
-            homePage.clickCart();
+            homePage.clickCartButton();
             result = cartPage.verifyCartPage();
             if (result) {
                 result = cartPage.validateSubscriptionTextVisible();
@@ -108,7 +109,7 @@ public class Actions {
     }
 
     public boolean verifyMenCategoryPage() {
-        dressProductsPage.clickHome();
+        dressProductsPage.clickHomeButton();
         boolean result = homePage.verifyHomePage();
         if (result) {
             homePage.clickMenCategory();

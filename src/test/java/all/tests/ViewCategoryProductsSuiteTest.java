@@ -37,11 +37,7 @@ public class ViewCategoryProductsSuiteTest {
     @Test(priority = 1, description = "Verify categories visibility and navigation", groups = {"regression", "ViewCategoryProducts"})
     public void verifyCategoriesVisibleInLeftSidebar() {
         boolean result = actions.verifyCategoriesVisibleInLeftSidebar();
-        if (result) {
-            logger.info("Categories are visible on the left sidebar, test passed.");
-        } else {
-            logger.error("Categories are not visible on the left sidebar, test failed.");
-        }
+        logger.info(result ? "Categories are visible on the left sidebar, test passed." : "Categories are not visible on the left sidebar, test failed.");
         Assert.assertTrue(result, "Categories are not visible on the left sidebar.");
     }
 
@@ -51,26 +47,17 @@ public class ViewCategoryProductsSuiteTest {
     @Test(priority = 2, description = "Verify that category page is displayed and confirm text 'WOMEN - TOPS PRODUCTS'", groups = {"regression", "ViewCategoryProducts"})
     public void verifyWomenCategoryPageText() {
         boolean result = actions.verifyWomenCategoryPageText();
-        if (result) {
-            logger.info("'WOMEN - TOPS PRODUCTS' text is displayed, test passed.");
-        } else {
-            logger.error("'WOMEN - TOPS PRODUCTS' text is not displayed, test failed.");
-        }
+        logger.info(result ? "'WOMEN - TOPS PRODUCTS' text is displayed, test passed." : "'WOMEN - TOPS PRODUCTS' text is not displayed, test failed.");
         Assert.assertTrue(result, "The 'WOMEN - TOPS PRODUCTS' text is not displayed.");
     }
 
     /**
-     /**
      * Verify that the Men category page is displayed and confirm the text 'MEN - T-SHIRTS PRODUCTS'
      */
     @Test(priority = 3, description = "Verify that Men category page is displayed and confirm text 'MEN - T-SHIRTS PRODUCTS'", groups = {"regression", "ViewCategoryProducts"})
     public void verifyManCategoryPage() {
         boolean result = actions.verifyMenCategoryPage();
-        if (result) {
-            logger.info("'MEN - T-SHIRTS PRODUCTS' text is displayed, test passed.");
-        } else {
-            logger.error("'MEN - T-SHIRTS PRODUCTS' text is not displayed, test failed.");
-        }
+        logger.info(result ? "'MEN - T-SHIRTS PRODUCTS' text is displayed, test passed." : "'MEN - T-SHIRTS PRODUCTS' text is not displayed, test failed.");
         Assert.assertTrue(result, "The 'MEN - T-SHIRTS PRODUCTS' text is not displayed.");
     }
 

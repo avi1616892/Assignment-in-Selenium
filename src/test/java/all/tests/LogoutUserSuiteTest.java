@@ -37,11 +37,7 @@ public class LogoutUserSuiteTest {
     @Test(priority = 1, description = "Testing the visibility of the Home page", groups = {"regression", "LogOutUser"})
     public void verifyHomePage() {
         boolean result = actions.verifyHomePage();
-        if (result) {
-            logger.info("Home page is visible, test passed.");
-        } else {
-            logger.error("Home page is not visible, test failed.");
-        }
+        logger.info(result ? "Home page is visible, test passed." : "Home page is not visible, test failed.");
         Assert.assertTrue(result, "The Home page is not visible.");
     }
 
@@ -52,11 +48,7 @@ public class LogoutUserSuiteTest {
     @Test(priority = 2, description = "Testing the visibility of 'Login to your account' message", groups = {"regression", "LogOutUser"})
     public void verifyLoginToYourAccount() {
         boolean result = actions.verifySignUpLoginPage();
-        if (result) {
-            logger.info("'Login to your account' is visible, test passed.");
-        } else {
-            logger.error("'Login to your account' is not visible, test failed.");
-        }
+        logger.info(result ? "'Login to your account' is visible, test passed." : "'Login to your account' is not visible, test failed.");
         Assert.assertTrue(result, "'Login to your account' is not visible.");
     }
 
@@ -69,12 +61,7 @@ public class LogoutUserSuiteTest {
     public void verifyLoggedInAsUsername() {
         String username = JsonUtils.readJsonFromFile("valid_name");
         boolean result = actions.verifyLoggedInAsUserName(username);
-
-        if (result) {
-            logger.info("'Logged in as {}' is visible, test passed.", username);
-        } else {
-            logger.error("'Logged in as {}' is not visible, test failed.", username);
-        }
+        logger.info(result ? "'Logged in as {}' is visible, test passed." : "'Logged in as {}' is not visible, test failed.", username);
         Assert.assertTrue(result, "'Logged in as " + username + "' is not visible.");
     }
 
@@ -84,14 +71,8 @@ public class LogoutUserSuiteTest {
      */
     @Test(priority = 4, description = "Verify that user is navigated to the login page", groups = {"regression", "LogOutUser"})
     public void verifyUserNavigatedToLoginPage() {
-
         boolean result = actions.verifyNavigatedToLoginPage();
-
-        if (result) {
-            logger.info("User successfully navigated to the login page, test passed.");
-        } else {
-            logger.error("User did not navigate to the login page, test failed.");
-        }
+        logger.info(result ? "User successfully navigated to the login page, test passed." : "User did not navigate to the login page, test failed.");
         Assert.assertTrue(result, "User is not navigated to the login page.");
     }
 

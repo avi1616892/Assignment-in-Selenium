@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class GenerateDriver {
 
@@ -43,16 +44,19 @@ public class GenerateDriver {
             case "chrome" -> {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--incognito");
                 yield new ChromeDriver(chromeOptions);
             }
             case "firefox" -> {
                 WebDriverManager.firefoxdriver().setup();
-                yield new FirefoxDriver();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("-private");
+                yield new FirefoxDriver(firefoxOptions);
             }
             case "edge" -> {
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("--no-first-run", "--disable-sync");
+                edgeOptions.addArguments("--inprivate");
                 yield new EdgeDriver(edgeOptions);
             }
             default -> throw new IllegalArgumentException("Browser \"" + browserType + "\" not supported.");
@@ -72,7 +76,9 @@ public class GenerateDriver {
      */
     public static void cleanDriver(WebDriver driver) {
         if (driver != null) {
-            driver.quit(); // Quit the WebDriver to close the browser
+            driver.close(); // Close the current window
+            driver.quit();  // Quit the WebDriver to close the browser
         }
     }
+
 }

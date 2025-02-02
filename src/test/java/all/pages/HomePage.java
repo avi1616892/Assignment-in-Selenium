@@ -25,23 +25,23 @@ public class HomePage extends BasePage {
     }
 
     /**
-     * Clicks on the Sign Up / Login link.
+     * Clicks on the Sign Up / Login button.
      */
-    public void clickSignUpLogin() {
+    public void clickSignUpLoginButton() {
         click(By.xpath("//a[@href=\"/login\"]"));
     }
 
     /**
-     * Clicks on the Logout link.
+     * Clicks on the Logout button.
      */
-    public void clickLogout() {
+    public void clickLogoutButton() {
         click(By.xpath("//a[@href='/logout']"));
     }
 
     /**
-     * Clicks on the Cart link.
+     * Clicks on the Cart button.
      */
-    public void clickCart() {
+    public void clickCartButton() {
         click(By.xpath("//*[text()=' Cart']"));
     }
 
@@ -103,7 +103,7 @@ public class HomePage extends BasePage {
      * Clicks on the scroll-up arrow.
      */
     public void clickScrollUpArrow() {
-        click(By.xpath("//a[@id='scrollUp']"));
+        click(By.id("scrollUp"));
     }
 
     /**

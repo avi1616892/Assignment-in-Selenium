@@ -33,7 +33,7 @@ public class DressProductsPage extends BasePage {
     /**
      * Clicks on the Home icon to navigate to the home page.
      */
-    public void clickHome() {
+    public void clickHomeButton() {
         click(By.xpath("//i[@class='fa fa-home']"));
     }
 }
